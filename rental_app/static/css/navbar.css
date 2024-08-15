@@ -1,0 +1,60 @@
+
+	/* color de fondo del navbar */
+	.container-navbar {
+		background-color: darkslategray;
+	}
+
+	/* define color de texto del navbar */
+	.nav-item a , .fa-brands{
+		color: white !important;
+	}
+
+	/* distancia entre los elementos del navbar */
+	.nav-item {
+		padding-inline: 10px;
+	}
+
+	/* Hover del menú principal */
+	.navbar-nav .nav-link:hover {
+		color: white;
+		background-color: var(--celeste);
+	}
+
+	/* Estilos para los submenús desplegables */
+	.dropdown-menu {
+		background-color: #848d8e;
+		border: none;
+	}
+
+	/* Hover submenu */
+	.dropdown-menu .dropdown-item:hover {
+		color: var(--celeste) !important;
+		background-color: white;
+	}
+
+	/* Cambia el color del borde del botón */
+	.navbar-toggler {
+		border-color: rgba(255, 255, 255, 0.5);
+	}
+
+	/* Cambia el color del ícono a blanco */
+	.navbar-toggler-icon {
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+	}
+
+	/* Cambia el resplandor a blanco */
+	.navbar-toggler:focus {
+		outline: none;
+		box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.5);
+	}
+
+	@media only screen and (max-width: 992px) {
+		nav-link {
+			font-size: 16px;
+		}
+
+		/*Oculta las redes sociales*/
+		.nav-fa-brands {
+			display: none;
+		}
+	}

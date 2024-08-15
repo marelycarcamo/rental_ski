@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Arriendos</h1>
+
+<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+	<div class="table-responsive">
+		<table class="table table-striped py-4">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Equipo</th>
+					<th>Fecha</th>
+					<th>Cliente</th>
+					<th colspan="">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for arriendo in arriendos %}
+				<tr>
+					<td>{{ arriendo.id }}</td>
+					<td>{{ arriendo.user.user.username }}</td>
+					<td>{{ arriendo.equipo.nombre }}</td>
+					<td>{{ arriendo.fecha }}</td>
+					<td>{{ arriendo.observacion }}</td>
+					<td>{{ arriendo.danado|yesno:"Sí,No" }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock %}

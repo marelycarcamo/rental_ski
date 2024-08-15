@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+	<div class="col-sm-12 col-md-6-col-lg-4 col-xl-4">
+
+<div class="dropdown mt-5 d-flex flex-row justify-content-center">
+    <button
+        type="button"
+        class="btn btn-info dropdown-toggle text-white"
+        data-bs-toggle="dropdown">
+        Categoría
+    </button>
+    <ul id="btn-categorias" class="dropdown-menu bg-light text-info">
+        <li><a class="dropdown-item" href="{% url 'equipo_list' %}?categoria=todos">Todos</a></li>
+        {% for categoria in categorias %}
+            <li><a class="dropdown-item" href="{% url 'equipo_list' %}?categoria={{ categoria.nombre }}">{{ categoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+</div>
+<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+    <div class="table-responsive">
+        <table class="table table-striped py-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th colspan="">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for equipo in equipos %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ equipo.nombre }}</td>
+                    <td>{{ equipo.precio }}</td>
+					<td><a href="{% url 'arrendar' equipo.id %}" class="btn btn-info text-white">Arrendar</a></td>
+				</tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+{% endblock %}
