@@ -15,6 +15,7 @@ from django.http import HttpResponseBadRequest
 
 
 
+
 def index(request):
     # Obtener todos los equipos con estado 'disponible'
     equipos_disponibles = Equipo.objects.filter(estado='disponible')
@@ -187,3 +188,18 @@ def vista_arriendos(request):
         # Manejo de errores, opcionalmente puedes loguear o mostrar un mensaje de error
         print(f"Error: {e}")
         return render(request, 'arriendos.html', {'error': 'Hubo un problema al cargar los arriendos.'})
+
+
+def facebook_redirect(request):
+    return redirect('https://web.facebook.com/antillancachile/?_rdc=1&_rdr#')
+
+def instagram_redirect(request):
+    return redirect('https://www.instagram.com/skiantillanca/')
+
+def twitter_redirect(request):
+    return redirect('https://x.com/AntillancaChile')
+
+def youtube_redirect(request):
+    return redirect('https://www.youtube.com/channel/UC_Am5BKnwMxi_3KieAFJnuA')
+
+

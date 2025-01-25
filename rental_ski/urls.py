@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rental_app import views
-from django.urls import path
+from django.urls import path 
 
 
 
@@ -30,5 +30,10 @@ urlpatterns = [
     path('equipos/<int:equipo_id>/arrendar/', views.arriendar_view, name='arrendar'),
     path('arriendos/',views.vista_arriendos, name='arriendos'),
 
+# redes sociales
+    path("facebook/", views.facebook_redirect, name="facebook_redirect"),
+    path("twitter/", views.twitter_redirect, name="twitter_redirect"),
+    path("instagram/", views.instagram_redirect, name="instagram_redirect"),
+    path("youtube/", views.youtube_redirect, name="youtube_redirect"),
     ]
 

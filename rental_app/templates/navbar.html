@@ -1,8 +1,8 @@
 {% load static %}
 
-<link rel="stylesheet" href="{% static 'navbar.css' %}" />
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
 
-<nav class="navbar navbar-expand-lg bg-black">
+<nav class="navbar navbar-expand-lg bg-black p-2 m-2">
 	<div class="container-fluid">
 		<a class="navbar-brand" href=""></a>
 		<button
@@ -22,7 +22,7 @@
 						class="nav-link active"
 						aria-current="page"
 						href="{% url 'index' %}"
-						>RENTAL SKI</a
+						>Rental Ski</a
 					>
 				</li>
 
@@ -64,61 +64,67 @@
 			</ul>
 
 			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-				<li class="nav-item nav-fa-brands">
-					<a class="nav-link" href="" target="_blank"
-						><i class="fa-brands fa-facebook"></i
-					></a>
+				<li class="pe-5">
+					<a href="{% url 'facebook_redirect' %}" target="_blank">
+						<i class="bi bi-facebook"></i>
+					</a>
+					<a href="{% url 'instagram_redirect' %}" target="_blank">
+						<i class="bi bi-instagram"></i>
+					</a>
+					<a href="{% url 'twitter_redirect' %}" target="_blank">
+						<i class="bi bi-twitter"></i>
+					</a>
+					<a href="{% url 'youtube_redirect' %}" target="_blank">
+						<i class="bi bi-youtube"></i>
+					</a>
 				</li>
-				<li class="nav-item nav-fa-brands">
-					<a class="nav-link" href="" target="_blank"
-						><i class="fa-brands fa-twitter"></i
-					></a>
-				</li>
-				<li class="nav-item nav-fa-brands">
-					<a class="nav-link" href="" target="_blank"
-						><i class="fa-brands fa-instagram"></i
-					></a>
-				</li>
-
+				<li class="d-flex flex-row">
 				{% if user.is_authenticated %}
-				<h4 style="color: white">Hola {{ user.get_username | title }} </h4>
+				<h4 style="color: white" class="pe-5">Hola {{ user.get_username | title }}  </h4>
 				<form action="{% url 'logout' %}" method="post">
 					{% csrf_token %}
-					<button class="btn btn-light mx-2">Salir</button>
+					<button class="btn btn-white mx-2">Salir</button>
 				</form>
 				{% else %}
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'registro' %}">Registro</a>
 				</li>
-				<a class="btn btn-info text-white mx-2" href="{% url 'login' %}">Login</a>
+				<a class="btn btn-info btn-bg text-white mx-2" href="{% url 'login' %}">Login</a>
 				{% endif %}
+				</li>
 			</ul>
 		</div>
 	</div>
 </nav>
 
 <style>
-	/* color de fondo del navbar */
-	.container-navbar {
-		background-color: darkslategray;
-	}
-
-	/* define color de texto del navbar */
-	.nav-item a,
-	i {
-		color: white !important;
-	}
 
 	/* distancia entre los elementos del navbar */
 	.nav-item {
 		padding-inline: 10px;
 	}
 
-	/* Hover del menú principal */
-	.navbar-nav .nav-link:hover {
-		color: white;
-		background-color: var(--celeste);
-	}
+/* define color de texto del navbar */
+.nav-item a , .fa-brands{
+	color: white !important;
+	font-size: 1.2rem !important;
+}
+
+.bi{
+	font-size: 25px !important;
+}
+
+/* distancia entre los elementos del navbar */
+.nav-item {
+	padding-inline: 10px;
+}
+
+/* Hover del menú principal */
+a:hover {
+	color: cyan !important;
+	background: black !important;
+}
+
 
 	/* Estilos para los submenús desplegables */
 	.dropdown-menu {
@@ -128,7 +134,6 @@
 
 	/* Hover submenu */
 	.dropdown-menu .dropdown-item:hover {
-		color: var(--celeste) !important;
 		background-color: white;
 	}
 
@@ -137,7 +142,7 @@
 		border-color: rgba(255, 255, 255, 0.5);
 	}
 
-	/* Cambia el color del ícono a blanco */
+	/* Cambia el color del ícono svg a blanco */
 	.navbar-toggler-icon {
 		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 	}

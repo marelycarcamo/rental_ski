@@ -1,42 +1,86 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="row">
-	<div class="container mt-4">
-		{% if messages %}
+<div class="col-12">
+	<div class="row d-flex flex-row justify-content-center p-5">
+		<div class="container mt-4">
+			{% if messages %}
 			<div class="alert alert-success" role="alert">
-				{% for message in messages %}
-					{{ message }}
-				{% endfor %}
+				{% for message in messages %} {{ message }} {% endfor %}
 			</div>
-		{% endif %}
+			{% endif %}
+		</div>
+
+		<div class="col-5">
+			<form
+				action=""
+				method="POST"
+				class="text-center border border-primary p-5 rounded my-5 shadow-lg bg-white" >
+				{% csrf_token %}
+				<h3 class="g-2">{{ equipo.nombre }}</h3>
+				<div class="row">
+					<div id="id-img" class="col-6 g-4">
+						<img
+							src=" {{ equipo.imagen }} "
+							alt="{{ equipo.nombre }}"
+							style="max-width: 100%; height: 120px; box-sizing: border-box"/>
+					</div>
+					<div class="col-6 g-4">
+						<input type="date" name="fecha" id="id_fecha" min="" />
+						<h3 class="p-2">${{ equipo.precio }}</h3>
+						<button id="btn-arrendar">Arrendar</button>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
-	<div class="col-4"></div>
 	
-	<div class="col-4">
+	<!-- Ids in the navbar a-href and ids in the content should match-->
 
-		<form
-			action=""
-			method="POST"
-			class="text-center border border-info p-4 rounded my-5">
-			{% csrf_token %}
-			<h1>Arrendar</h1>
-			<h2>{{ equipo.nombre }}</h2>
-			<img src=" {{equipo.url}} " alt="" />
+	<style>
+			#btn-arrendar {
+			background: #17fcf5f3!important;
+            color: white!important;
+            transition: background-color.1s ease-in-out;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 10px;
+            margin-left: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+		}
 
-			<h3>{{ equipo.precio }}</h3>
+		#btn-arrendar:hover {
+			background:  #2fc8c3fe !important;
+            transition: background-color.1s ease-in-out;
+		}
 
-			<input type="date" name="fecha" id="id_fecha" min="" />
-
-			<button class="btn bg-info text-white">Arrendar</button>
-		</form>
+	</style>
+	<div
+		data-bs-spy="scroll"
+		data-bs-target="#navId"
+		data-bs-smooth-scroll="true">
+		<div id="navId">
+			<ul class="nav nav-tabs" role="tablist"></ul>
+		</div>
 	</div>
-	<div class="col-4"></div>
-</div>
 
-<script>
-	document.addEventListener("DOMContentLoaded", function () {
-		var today = new Date().toISOString().split("T")[0];
-		document.getElementById("id_fecha").setAttribute("min", today);
-	});
-</script>
-{% endblock %}
+	<script>
+		var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+			target: "#navId",
+		});
+		document.addEventListener("DOMContentLoaded", function () {
+			var today = new Date().toISOString().split("T")[0];
+			document.getElementById("id_fecha").setAttribute("min", today);
+		});
+	</script>
+	{% endblock %}
+</div>
