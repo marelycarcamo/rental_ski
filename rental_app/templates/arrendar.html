@@ -2,7 +2,7 @@
 
 <div class="col-12">
 	<div class="row d-flex flex-row justify-content-center p-5">
-		<div class="container mt-4">
+		<div class="container mt-2">
 			{% if messages %}
 			<div class="alert alert-success" role="alert">
 				{% for message in messages %} {{ message }} {% endfor %}
@@ -10,11 +10,14 @@
 			{% endif %}
 		</div>
 
-		<div class="col-5">
+		<div class="col-6">
 			<form
 				action=""
 				method="POST"
-				class="text-center border border-primary p-5 rounded my-5 shadow-lg bg-white" >
+				class="text-center border border-info rounded mt-5 p-1 shadow-lg bg-black" >
+				<div class="d-flex flex-row justify-content-end ">
+				<button type="button" class="btn-close btn-close-white mb-3 pb-3" aria-label="Close"></button>
+					</div>
 				{% csrf_token %}
 				<h3 class="g-2">{{ equipo.nombre }}</h3>
 				<div class="row">
@@ -22,7 +25,7 @@
 						<img
 							src=" {{ equipo.imagen }} "
 							alt="{{ equipo.nombre }}"
-							style="max-width: 100%; height: 120px; box-sizing: border-box"/>
+							style="max-width: 100%; height: 160px; box-sizing: border-box"/>
 					</div>
 					<div class="col-6 g-4">
 						<input type="date" name="fecha" id="id_fecha" min="" />
@@ -30,8 +33,12 @@
 						<button id="btn-arrendar">Arrendar</button>
 					</div>
 				</div>
+				<button type="button" class="btn mb-3 pb-3"  aria-label="Close"><i class="bi bi-arrow-left"></i></button>
+				<i class="bi bi-arrow-left"></i>
 			</form>
 		</div>
+	
+	</div>
 	</div>
 	
 	<!-- Ids in the navbar a-href and ids in the content should match-->
@@ -63,24 +70,28 @@
             transition: background-color.1s ease-in-out;
 		}
 
+		h3{
+			font-weight: 600;
+		}
+
 	</style>
-	<div
-		data-bs-spy="scroll"
-		data-bs-target="#navId"
-		data-bs-smooth-scroll="true">
-		<div id="navId">
-			<ul class="nav nav-tabs" role="tablist"></ul>
-		</div>
-	</div>
+
 
 	<script>
 		var scrollSpy = new bootstrap.ScrollSpy(document.body, {
 			target: "#navId",
 		});
 		document.addEventListener("DOMContentLoaded", function () {
-			var today = new Date().toISOString().split("T")[0];
-			document.getElementById("id_fecha").setAttribute("min", today);
+			var dia = new Date().toISOString().split("T")[0];
+			document.getElementById("id_fecha").setAttribute("min", dia);
 		});
+		
+		/* cerrar ventana */
+		const botonCerrar = document.querySelector('.btn-close');
+		botonCerrar.addEventListener('click', () => {
+			form.close();
+		});
+
 	</script>
-	{% endblock %}
 </div>
+{% endblock %}

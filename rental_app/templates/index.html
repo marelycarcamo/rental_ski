@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
+z
 <div class="row">
-	<div class="col-sm-12 col-md-6-col-lg-4 col-xl-4">
+	<div class="col-sm-12 col-md-6-col-lg-6 col-xl-6">
 
 <div class="dropdown mt-5 d-flex flex-row justify-content-center">
     <button
@@ -20,7 +20,7 @@
     </ul>
 </div>
 </div>
-<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+<div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
     <div class="table-responsive-sm p-2">
         <table class="table table-dark table-hover py-4">
             <thead>
@@ -51,10 +51,8 @@
         font-size : 1.2rem;
     }
 
-    td{
-        opacity: 80%;
+    td:not(.btn) {
+        opacity: 90% !important;
     }
-
 </style>
-
 {% endblock %}

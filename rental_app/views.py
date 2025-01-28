@@ -190,6 +190,9 @@ def vista_arriendos(request):
         return render(request, 'arriendos.html', {'error': 'Hubo un problema al cargar los arriendos.'})
 
 
+
+# Redes Sociales
+
 def facebook_redirect(request):
     return redirect('https://web.facebook.com/antillancachile/?_rdc=1&_rdr#')
 

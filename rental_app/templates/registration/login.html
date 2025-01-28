@@ -1,8 +1,11 @@
-{% extends 'base.html' %} {% block content %}
 
+{% extends 'base.html' %} {% load static %}{% block content %}
+
+<link rel="stylesheet" href="{% static '/css/form.css' %}">
 <div class="container mt-5">
     <div class="row">
-        <div class="mx-auto col-5">
+        <div class="container-login mx-auto col-5">
+            <h2 class style="font-weight: 600;">Login</h2>
             <form
                 action="{% url 'login' %}"
                 method="post"
@@ -30,5 +33,7 @@
         </div>
     </div>
 </div>
+
+
 {% endblock %}
 

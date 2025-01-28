@@ -31,6 +31,15 @@
 					<a class="nav-link" href="{%  url 'arriendos' %}">Arriendos</a>
 				</li>
 				{% endif %}
+
+				{% if user.is_authenticated and user.usuario.tipo == 'cliente' %}
+				<li class="nav-item">
+                    <a class="nav-link" href="{% url 'mis_arriendos' %}">Mis Arriendos</a>
+                </li>
+				{% endif %}
+
+
+				
 				<li class="nav-item dropdown">
 					<a
 						class="nav-link dropdown-toggle"
@@ -83,7 +92,7 @@
 				<h4 style="color: white" class="pe-5">Hola {{ user.get_username | title }}  </h4>
 				<form action="{% url 'logout' %}" method="post">
 					{% csrf_token %}
-					<button class="btn btn-white mx-2">Salir</button>
+					<button class="btn btn-danger mx-2">Salir</button>
 				</form>
 				{% else %}
 				<li class="nav-item">
