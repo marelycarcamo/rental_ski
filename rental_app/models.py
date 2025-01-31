@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Usuario(models.Model):
     # Relación one-to-one con el modelo User de Django
-    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     
     # Opciones para el campo 'tipo'

@@ -85,6 +85,8 @@ def custom_login(request):
             messages.error(request, "Usuario no encontrado. Por favor, regístrate.")
             return redirect('registro')
 
+        
+
     return render(request, 'registration/login.html')
 
 
@@ -167,7 +169,7 @@ def arriendar_view(request, equipo_id):
 
 
 
-
+#En caso del que el usuario sea de tipo operario
 @login_required
 def vista_arriendos(request):
     try:

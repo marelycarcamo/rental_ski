@@ -31,6 +31,7 @@ urlpatterns = [
     path('arriendos/',views.vista_arriendos, name='arriendos'),
     path('mis_arriendos/',views.vista_arriendos, name='mis_arriendos'),
     path('logout/', views.logout_view, name='logout'),
+    
 
 # redes sociales
     path("facebook/", views.facebook_redirect, name="facebook_redirect"),
