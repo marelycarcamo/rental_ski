@@ -4,7 +4,10 @@
 
 <nav class="navbar navbar-expand-lg bg-black p-2 m-2">
 	<div class="container-fluid">
-		<a class="navbar-brand" href=""></a>
+	
+		<a class="navbar-brand" href="#">
+			<img id="logo-suricata" class="w-75" src="{% static '/img/logo-rentalSki.png' %}" alt="Avatar Logo" />
+		</a>
 		<button
 			class="navbar-toggler"
 			type="button"
@@ -22,11 +25,18 @@
 						class="nav-link active"
 						aria-current="page"
 						href="{% url 'index' %}"
-						>Rental Ski</a
+						>Inicio</a
 					>
 				</li>
 
-				{% if user.is_authenticated and user.usuario.tipo == 'operario' %}
+				{% if user.is_authenticated %}
+				<li class="nav-item">
+					<a class="nav-link" href="{%  url 'arriendos' %}">Arriendos</a>
+				</li>
+				{% endif %}
+
+
+				<!-- {% if user.is_authenticated and user.usuario.tipo == 'operario' %}
 				<li class="nav-item">
 					<a class="nav-link" href="{%  url 'arriendos' %}">Arriendos</a>
 				</li>
@@ -36,7 +46,7 @@
 				<li class="nav-item">
                     <a class="nav-link" href="{% url 'mis_arriendos' %}">Mis Arriendos</a>
                 </li>
-				{% endif %}
+				{% endif %} -->
 
 
 				

@@ -104,7 +104,7 @@ def registro(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        nombre = request.POST['nombre']
+        first_name = request.POST['first_name']
         email = request.POST['email']
         tipo = request.POST['user_type']
     
@@ -114,14 +114,12 @@ def registro(request):
             return redirect('login')  # Redirige al login si el usuario ya existe
         
         # Crear un nuevo usuario
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username, password=password, email=email, first_name=first_name)
         user.save()
         
         # Crear un perfil adicional en la tabla Usuario
         usuario = Usuario(
             user=user,
-            nombre=nombre,
-            email=email,
             tipo=tipo,
         )
         usuario.save()
