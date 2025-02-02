@@ -27,10 +27,11 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     path('registro/',views.registro, name='registro'),
     path('equipos/', views.equipo_list, name='equipo_list'),
-    path('equipos/<int:equipo_id>/arrendar/', views.arriendar_view, name='arrendar'),
+    path('equipos/<int:equipo_id>/arrendar/', views.arrendar_view, name='arrendar'),
     path('arriendos/',views.vista_arriendos, name='arriendos'),
     path('mis_arriendos/',views.vista_arriendos, name='mis_arriendos'),
     path('logout/', views.logout_view, name='logout'),
+    path('login/', views.login_view, name='login'),  # Vista personalizada de login
     
 
 # redes sociales

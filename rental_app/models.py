@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Usuario(models.Model):
     # Relación one-to-one con el modelo User de Django
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     created = models.DateTimeField(auto_now_add=True)
     
     # Opciones para el campo 'tipo'
@@ -14,7 +14,9 @@ class Usuario(models.Model):
     tipo = models.CharField(max_length=12, choices=TIPO_USUARIO)
     
     def __str__(self):
-        return f'{self.user}({self.tipo})'
+        return f'{self.user} ({self.tipo})'
+
+    
 
 # Modelo de Categoría
 class Categoria(models.Model):

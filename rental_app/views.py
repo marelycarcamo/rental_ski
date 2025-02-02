@@ -1,18 +1,13 @@
 # views.py
 
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import Arriendo, Equipo, Usuario
-from django.contrib.auth import logout
-# from .utilities import cleaned_data
-from django.contrib.auth import authenticate
-from django.shortcuts import render
-from .models import Equipo, Categoria
+from .models import Arriendo, Equipo, Usuario, Categoria
 from django.utils import timezone
 from django.http import HttpResponseBadRequest
-
 
 
 
@@ -66,29 +61,55 @@ def arriendo_view(request, equipo_id):
 
 
 
-def login(request):
-    return redirect ('/accounts/login.html')
+# def login(request):
+#     return redirect ('/accounts/login.html')
 
 
-def custom_login(request):
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from .models import Usuario  # Importa tu modelo Usuario
+
+def login_view(request):
+    """
+    Vista personalizada para manejar el login.
+    Verifica el tipo de usuario y lo redirige a la página correspondiente.
+    """
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        
-        # Verificar si el usuario existe
-        user = authenticate(username=username, password=password)
+        # Obtener los datos del formulario
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Autenticar al usuario
+        user = authenticate(request, username=username, password=password)
+
         if user is not None:
-            # Si el usuario existe, inicia sesión y redirige al perfil
+            # Iniciar sesión
             login(request, user)
-            return redirect('index')
+
+            # Verificar si el usuario tiene un perfil de Usuario
+            try:
+                usuario = Usuario.objects.get(user=user)
+                tipo_usuario = usuario.tipo
+            except Usuario.DoesNotExist:
+                # Si no tiene perfil, redirigir al index (o a una página de error)
+                return redirect('index')
+
+            # Redirigir según el tipo de usuario
+            if tipo_usuario == 'cliente':
+                return redirect('index')  # Redirigir a la página de clientes
+            elif tipo_usuario == 'operario':
+                return redirect('arriendos')  # Redirigir a la página de operarios
+            # elif user.is_superuser:
+            #     return redirect('admin/')  # Redirigir al panel de administración
+            else:
+                return redirect('index')  # Redirigir a una página por defecto
         else:
-            messages.error(request, "Usuario no encontrado. Por favor, regístrate.")
-            return redirect('registro')
-
-        
-
-    return render(request, 'registration/login.html')
-
+            # Si la autenticación falla, mostrar un mensaje de error
+            return render(request, 'registro/login.html', {'error': 'Usuario o contraseña incorrectos'})
+    else:
+        # Si no es una solicitud POST, mostrar el formulario de login
+        return render(request, 'registro/login.html')
 
 
 @login_required
@@ -132,7 +153,7 @@ def registro(request):
 
 
 @login_required
-def arriendar_view(request, equipo_id):
+def arrendar_view(request, equipo_id):
     equipo = get_object_or_404(Equipo, id=equipo_id)
     if request.method == 'POST':
         fecha = request.POST.get('fecha')
