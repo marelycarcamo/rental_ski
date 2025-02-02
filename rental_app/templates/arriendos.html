@@ -12,7 +12,8 @@
 					<th>Equipo</th>
 					<th>Fecha</th>
 					<th>Observaciones</th>
-					<th colspan="">Acciones</th>
+					<th colspan="">Dañado</th>
+					<th>Acción</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -21,9 +22,12 @@
 					<td>{{ arriendo.id }}</td>
 					<td>{{ arriendo.user.user.username }}</td>
 					<td>{{ arriendo.equipo.nombre }}</td>
-					<td>{{ arriendo.fecha }}</td>
-					<td>{{ arriendo.observacion }}</td>
-					<td>{{ arriendo.danado|yesno:"Sí,No" }}</td>
+					<td>{{ arriendo.fecha|date:"d-m-y" }}</td>
+					<td><textarea name="" id="" cols="40" rows="3" maxlength="250" >{{ arriendo.observacion }}</textarea></td>
+					<td><input type="checkbox" name="danado" id="danado" 
+						{% if arriendo.danado %}checked{% endif %} 
+					value="True"></td>
+					<td><button class="btn btn-outline btn-info text-white" type="submit">Guardar</button></td>
 				</tr>
 				{% endfor %}
 			</tbody>

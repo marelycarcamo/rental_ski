@@ -54,8 +54,9 @@ class Arriendo(models.Model):
     user = models.ForeignKey(Usuario, on_delete=models.DO_NOTHING)
     equipo = models.ForeignKey(Equipo, on_delete=models.DO_NOTHING)
     fecha = models.DateTimeField()
-    observacion = models.TextField(blank=True, null=True)
+    observacion = models.TextField(blank=True, null=True, default='Sin observaciones')
     danado = models.BooleanField(default=False)
+    
 
     def __str__(self):
         return f'Arriendo de {self.equipo.nombre} por {self.user.user.username} el {self.fecha}'
