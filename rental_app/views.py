@@ -99,17 +99,17 @@ def login_view(request):
             if tipo_usuario == 'cliente':
                 return redirect('index')  # Redirigir a la página de clientes
             elif tipo_usuario == 'operario':
-                return redirect('arriendos')  # Redirigir a la página de operarios
+                return redirect('arriendo')  # Redirigir a la página de operarios
             # elif user.is_superuser:
             #     return redirect('admin/')  # Redirigir al panel de administración
             else:
                 return redirect('index')  # Redirigir a una página por defecto
         else:
             # Si la autenticación falla, mostrar un mensaje de error
-            return render(request, 'registro/login.html', {'error': 'Usuario o contraseña incorrectos'})
+            return render(request, 'registration/login.html', {'error': 'Usuario o contraseña incorrectos'})
     else:
         # Si no es una solicitud POST, mostrar el formulario de login
-        return render(request, 'registro/login.html')
+        return render(request, 'registration/login.html')
 
 
 @login_required
@@ -203,12 +203,47 @@ def vista_arriendos(request):
         }
 
         # Retornar el template con los datos
-        return render(request, 'arriendos.html', context)
+        return render(request, 'arriendo.html', context)
     
     except Exception as e:
         # Manejo de errores, opcionalmente puedes loguear o mostrar un mensaje de error
         print(f"Error: {e}")
-        return render(request, 'arriendos.html', {'error': 'Hubo un problema al cargar los arriendos.'})
+        return render(request, 'arriendo.html', {'error': 'Hubo un problema al cargar los arriendos.'})
+
+
+
+
+
+# from django.shortcuts import get_object_or_404, redirect
+# from django.contrib import messages
+# from .models import Arriendo  # Asegúrate de importar el modelo Arriendo
+
+def comentario_arriendo_view(request, arriendo_id):
+    if request.method == 'POST':
+        # Obtener el arriendo específico por su ID
+        arriendo = get_object_or_404(Arriendo, id=arriendo_id)
+        
+        # Obtener los datos del formulario
+        observacion = request.POST.get('observacion')
+        danado = request.POST.get('danado') == 'True'  # Convertir a booleano
+        
+        # Actualizar los campos del arriendo
+        arriendo.observacion = observacion
+        arriendo.danado = danado
+        arriendo.save()
+        
+        # Mensaje de éxito
+        messages.success(request, 'Comentario y estado de daño actualizados correctamente.')
+        
+        # Redirigir a la página de arriendos o a donde sea necesario
+        return redirect('arriendo')  # Cambia 'nombre_de_la_url_de_arriendos' por la URL a la que quieres redirigir
+    
+    # Si no es POST, redirigir a la página de arriendos
+    return redirect('arriendos')
+
+
+
+
 
 
 

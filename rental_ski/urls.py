@@ -28,8 +28,8 @@ urlpatterns = [
     path('registro/',views.registro, name='registro'),
     path('equipos/', views.equipo_list, name='equipo_list'),
     path('equipos/<int:equipo_id>/arrendar/', views.arrendar_view, name='arrendar'),
-    path('arriendos/',views.vista_arriendos, name='arriendos'),
-    path('mis_arriendos/',views.vista_arriendos, name='mis_arriendos'),
+    path('arriendo/',views.vista_arriendos, name='arriendo'),
+    path('comentario-arriendo/<int:arriendo_id>/', views.comentario_arriendo_view, name='comentario_arriendo'),
     path('logout/', views.logout_view, name='logout'),
     path('login/', views.login_view, name='login'),  # Vista personalizada de login
     

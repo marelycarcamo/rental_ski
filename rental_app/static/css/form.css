@@ -1,9 +1,8 @@
   /* Estilos para el contenedor */
-  .container-login {
+.container-login {
 	background-color: rgba(0, 0, 0, 0.7); /* Fondo negro con 80% de opacidad */
-	padding: 20px;
 	border-radius: 10px;
-	width: 400px;
+	width: 500px;
 	margin: 50px auto;
 	padding-block: 40px;
 	padding-inline: 60px;

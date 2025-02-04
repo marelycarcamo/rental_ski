@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% load static %} {% block content %} 
+
+<h1>Arriendos</h1>
+
+<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8 border border-5 border-danger">
+
+
+		<div class="table-responsive">
+			<table class="table table-striped py-4">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Cliente</th>
+						<th>Equipo</th>
+						<th>Fecha</th>
+						<th>Observaciones</th>
+						<th colspan="">Dañado</th>
+						<th>Acción</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for arriendo in arriendos %}
+				
+					<tr>
+						
+                        <td>{{ arriendo.id }}</td>
+						<td>{{ arriendo.user.user.username }}</td>
+						<td>{{ arriendo.equipo.nombre }}</td>
+						<td>{{ arriendo.fecha|date:"d-m-y" }}</td>
+						<form action='{% url "comentario_arriendo" arriendo.id %}' method="post">
+							{% csrf_token %}
+							<td><textarea id="observacion" name="observacion" cols="40" rows="3" maxlength="250" >{{ arriendo.observacion }}</textarea></td>
+							<td ><input type="checkbox" name="danado" id="danado" style="transform: scale(1.8); accent-color:gray;"
+								{% if arriendo.danado %}checked{% endif %} 
+							value="True"></td>
+							<td><button class="btn btn-outline btn-info text-white" type="submit">Guardar</button></td>
+						</form>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	
+</div>
+
+
+{% endblock %}
