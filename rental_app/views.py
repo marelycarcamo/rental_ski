@@ -152,41 +152,57 @@ def registro(request):
 
 
 
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.utils import timezone
+from .models import Equipo, Usuario, Arriendo
+from .forms import ArrendarEquipoForm  # Importamos nuestro formulario
+
 @login_required
 def arrendar_view(request, equipo_id):
     equipo = get_object_or_404(Equipo, id=equipo_id)
-    if request.method == 'POST':
-        fecha = request.POST.get('fecha')
-        if fecha:
-            fecha = timezone.datetime.strptime(fecha, '%Y-%m-%d').date()
-            if fecha < timezone.now().date():
-                return HttpResponseBadRequest("La fecha no puede ser anterior a hoy.")
-                # Guardar el arriendo en la base de datos
-
-
-    # Obtener el usuario autenticado
     user = request.user
-
-    # Obtener la instancia del modelo Usuario relacionada con este User
     usuario = get_object_or_404(Usuario, user=user)
-    if request.method == "POST":
-            # Crear un nuevo arriendo con la instancia de Usuario
+
+    if request.method == 'POST':
+        form = ArrendarEquipoForm(request.POST)  # Usamos el formulario
+        
+        if form.is_valid():
+            # Los datos ya están validados aquí
+            fecha = form.cleaned_data['fecha']
+
+            # Crear arriendo
             arriendo = Arriendo.objects.create(
                 user=usuario,
                 equipo=equipo,
-                fecha=fecha,  
-        
+                fecha=fecha,
             )
-            arriendo.save()
-            # Cambiar el estado del equipo a arrendado
+
+            # Actualizar estado del equipo
             equipo.estado = 'arrendado'
             equipo.save()
 
-            # Mensaje de éxito
-            messages.success(request, f'¡El equipo {equipo.nombre} ha sido arrendado exitosamente!')
-            
-            return redirect('equipo_list')
-    return render(request, 'arrendar.html', {'equipo': equipo})
+            messages.success(request, f'¡{equipo.nombre} arrendado exitosamente!')
+            return redirect('arrendar', equipo.id)
+
+    else:  # Método GET
+        form = ArrendarEquipoForm()  # Formulario vacío
+
+    return render(request, 'arrendar.html', {
+        'equipo': equipo,
+        'form': form  # Pasamos el formulario al template
+    })
+
+
+
+
+
+
+
+
+
 
 
 
@@ -239,7 +255,12 @@ def comentario_arriendo_view(request, arriendo_id):
         return redirect('arriendo')  # Cambia 'nombre_de_la_url_de_arriendos' por la URL a la que quieres redirigir
     
     # Si no es POST, redirigir a la página de arriendos
-    return redirect('arriendos')
+    return redirect('arriendo')
+
+
+
+
+
 
 
 

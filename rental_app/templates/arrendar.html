@@ -1,8 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 
 <div class="col-12">
-	<div class="row d-flex flex-row justify-content-center p-5">
-		<div class="container mt-2">
+	<div class="row d-flex flex-row justify-content-center border border-danger p-5">
+		<div>
 			{% if messages %}
 			<div class="alert alert-success" role="alert">
 				{% for message in messages %} {{ message }} {% endfor %}
@@ -12,26 +12,39 @@
 
 		<div class="col-6">
 			<form
-				action=""
+				action="{% url 'arrendar' equipo_id=equipo.id %}"
 				method="POST"
-				class="text-center border border-info rounded mt-5 p-1 shadow-lg bg-black" >
+				class="text-center border rounded mt-5 p-1 shadow-lg" >
 				<div class="d-flex flex-row justify-content-end ">
 				<button type="button" class="btn-close btn-close-white mb-3 pb-3" aria-label="Close"></button>
 					</div>
 				{% csrf_token %}
-				<h3 class="g-2">{{ equipo.nombre }}</h3>
-				<div class="row">
+				<h3 class="g-2 text-white">{{ equipo.nombre }}</h3>
+				<div class="row d-flex flex-row">
 					<div id="id-img" class="col-6 g-4">
+						<div class="p-4 bg-white" style="display: inline-block;" >
 						<img
 							src=" {{ equipo.imagen }} "
 							alt="{{ equipo.nombre }}"
-							style="max-width: 100%; height: 160px; box-sizing: border-box"/>
+							style="max-width: 100%; height: auto; display:block"/>
+					</div>
 					</div>
 					<div class="col-6 g-4">
-						<input type="date" name="fecha" id="id_fecha" min="" />
+						{{ form.fecha }}  <!-- Reemplazamos el input manual por el campo del formulario -->
+						
+						<!-- Mostrar errores de fecha -->
+						{% if form.fecha.errors %}
+							<div class="alert alert-danger mt-2">
+								{% for error in form.fecha.errors %}
+									{{ error }}
+								{% endfor %}
+							</div>
+						{% endif %}
+					
 						<h3 class="p-2">${{ equipo.precio }}</h3>
-						<button id="btn-arrendar">Arrendar</button>
+						<button id="btn-arrendar" name="arrendar" type="submit" class="btn btn-info">Arrendar</button>
 					</div>
+					
 				</div>
 				<button type="button" class="btn mb-3 pb-3"  aria-label="Close"><i class="bi bi-arrow-left"></i></button>
 				<i class="bi bi-arrow-left"></i>
@@ -45,7 +58,7 @@
 
 	<style>
 			#btn-arrendar {
-			background: #17fcf5f3!important;
+			background: rgba(0,0,0,0,0.9);
             color: white!important;
             transition: background-color.1s ease-in-out;
             border: none;
@@ -70,9 +83,12 @@
             transition: background-color.1s ease-in-out;
 		}
 
-		h3{
-			font-weight: 600;
+	
+		
+		form{
+			background-color: rgba(0, 0, 0, 0.8) !important;
 		}
+		
 
 	</style>
 
@@ -95,3 +111,9 @@
 	</script>
 </div>
 {% endblock %}
+
+
+
+max-width: 100%; /* La imagen no excede el ancho del div */
+height: auto; /* Mantiene la proporción de la imagen */
+display: block; /* Elimina espacio extra debajo de la imagen */
