@@ -189,7 +189,8 @@ Para mejorar la apariencia y funcionalidad, se utilizan los siguientes recursos 
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   ```
 
-- 	**jQuery 3.7.1**
+- **Jquery 3.7.1**
+
 	Biblioteca JavaScript para facilitar la manipulación del DOM y eventos.
 	```html
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-3gJwYpMe3QewGELvNaK7PYZt27NXFoaoApmYm81iuXo=" crossorigin="anonymous"></script>
@@ -198,6 +199,8 @@ Para mejorar la apariencia y funcionalidad, se utilizan los siguientes recursos 
 ---
 
 ## 📁 Estructura del Proyecto
+
+```textplane
 
 rental_ski/
 ├── rental_app/
@@ -219,6 +222,7 @@ rental_ski/
 ├── rental_ski.sql
 ├── README.txt
 └── manage.py
+```
 
 ---
 
