@@ -1,4 +1,14 @@
 $(document).ready(function () {
+	const elementosPrecio = document.querySelectorAll('.precio');
+	elementosPrecio.forEach(elemento => {
+		const precio = parseInt(elemento.textContent);
+		const precioFormateado = precio.toLocaleString('es-CL', {
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0
+		});
+	elemento.textContent = precioFormateado;
+	});
+
 	$(".dropdown-toggle").click(function () {
 		$("#btn-categorias").toggleClass("show");
 	});
@@ -9,4 +19,6 @@ $(document).ready(function () {
 			$("#btn-categorias").removeClass("show");
 		}
 	});
+
+
 });

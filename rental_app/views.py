@@ -1,13 +1,16 @@
 # views.py
 
-from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
+#from django.utils import timezone
+#from django.http import HttpResponseBadRequest
 from .models import Arriendo, Equipo, Usuario, Categoria
-from django.utils import timezone
-from django.http import HttpResponseBadRequest
+from .forms import ArrendarEquipoForm  # Importamos nuestro formulario
+
+
 
 
 
@@ -65,10 +68,7 @@ def arriendo_view(request, equipo_id):
 #     return redirect ('/accounts/login.html')
 
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
-from .models import Usuario  # Importa tu modelo Usuario
+
 
 def login_view(request):
     """
@@ -154,11 +154,6 @@ def registro(request):
 
 
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from django.utils import timezone
-from .models import Equipo, Usuario, Arriendo
-from .forms import ArrendarEquipoForm  # Importamos nuestro formulario
 
 @login_required
 def arrendar_view(request, equipo_id):
@@ -229,10 +224,29 @@ def vista_arriendos(request):
 
 
 
+def mis_arriendos(request):
+    try:
+        # Obtener el usuario actual
+        user = request.user
+        usuario = get_object_or_404(Usuario, user=user)
 
-# from django.shortcuts import get_object_or_404, redirect
-# from django.contrib import messages
-# from .models import Arriendo  # Asegúrate de importar el modelo Arriendo
+        # Obtener todos los arriendos del usuario
+        arriendos = Arriendo.objects.filter(user=usuario)
+
+        # Pasar los arriendos al template
+        context = {
+            'arriendos': arriendos
+        }
+
+        # Retornar el template con los datos
+        return render(request, 'mis_arriendos.html', context)
+    
+    except Exception as e:
+        # Manejo de errores, opcionalmente puedes loguear o mostrar un mensaje de error
+        print(f"Error: {e}")
+        return render(request, 'mis_arriendos.html', {'error': 'Hubo un problema al cargar tus arriendos.'})
+
+
 
 def comentario_arriendo_view(request, arriendo_id):
     if request.method == 'POST':

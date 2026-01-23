@@ -29,6 +29,7 @@ urlpatterns = [
     path('equipos/', views.equipo_list, name='equipo_list'),
     path('equipos/<int:equipo_id>/arrendar/', views.arrendar_view, name='arrendar'),
     path('arriendo/',views.vista_arriendos, name='arriendo'),
+    path('mis-arriendos/',views.mis_arriendos, name='mis_arriendos'),
     path('comentario-arriendo/<int:arriendo_id>/', views.comentario_arriendo_view, name='comentario_arriendo'),
     path('logout/', views.logout_view, name='logout'),
     path('login/', views.login_view, name='login'),  # Vista personalizada de login

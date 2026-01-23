@@ -5,6 +5,24 @@ z
 <div class="row">
 	<div class="col-sm-12 col-md-6-col-lg-6 col-xl-6">
 
+
+
+        <div class="btn-group dropend">
+            <button type="button" class="btn btn-secondary">
+              Split dropend
+            </button>
+            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropend</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'equipo_list' %}?categoria=todos">Todos</a></li>
+                {% for categoria in categorias %}
+                    <li><a class="dropdown-item" href="{% url 'equipo_list' %}?categoria={{ categoria.nombre }}">{{ categoria.nombre }}</a></li>
+                {% endfor %}
+              <!-- Dropdown menu links -->
+            </ul>
+          </div>    
+
 <div class="dropdown mt-5 d-flex flex-row justify-content-center">
     <button
         type="button"
@@ -36,7 +54,7 @@ z
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ equipo.nombre }}</td>
-                    <td>{{ equipo.precio }}</td>
+                    <td class='precio'>{{ equipo.precio }}</td>
 					<td><a href="{% url 'arrendar' equipo.id %}" class="btn btn-info btn-lg text-white">Arrendar</a></td>
 				</tr>
                 {% endfor %}
@@ -46,15 +64,6 @@ z
 </div>
 </div>
 
-<!-- <style>
-     td,th{
-       
-    }
-
-    td:not(.btn) {
-        opacity: 90% !important;
-    } 
-</style> -->
 
 <style>
     td:not(.btn),th{

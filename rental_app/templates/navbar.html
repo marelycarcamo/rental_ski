@@ -29,11 +29,21 @@
 					>
 				</li>
 
-				{% if user.is_authenticated %}
+				<!-- {% if user.is_authenticated %}
 				<li class="nav-item">
 					<a class="nav-link" href="{%  url 'arriendo' %}">Arriendos</a>
 				</li>
-				{% endif %}
+				{% endif %} -->
+
+				{% if user.is_authenticated %}
+				<li class="nav-item">
+					{% if user.usuario.tipo == 'operario' %}
+						<a class="nav-link" href="{% url 'arriendos' %}">Arriendos</a>
+					{% elif user.usuario.tipo == 'cliente' %}
+						<a class="nav-link" href="{% url 'mis_arriendos'  %}">Mis Arriendos</a>
+					{% endif %}
+				</li>
+			{% endif %}
 
 
 				

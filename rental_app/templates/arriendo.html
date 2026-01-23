@@ -6,7 +6,7 @@
 
 
 		<div class="table-responsive">
-			<table class="table table-striped py-4">
+			<table class="table table-dark py-4">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -33,7 +33,7 @@
 							<td ><input type="checkbox" name="danado" id="danado" style="transform: scale(1.8); accent-color:gray;"
 								{% if arriendo.danado %}checked{% endif %} 
 							value="True"></td>
-							<td><button class="btn btn-outline btn-info text-white" type="submit">Guardar</button></td>
+							<td><a class="btn btn-outline btn-info btn-lg text-white" type="submit">Guardar</a></td>
 						</form>
 					</tr>
 					{% endfor %}
@@ -42,6 +42,16 @@
 		</div>
 	
 </div>
+
+
+<style>
+	td:not(.btn),th{
+		border-collapse: collapse;
+		background-color: rgba(0, 0, 0, 0.8) !important;
+		color:white !important;
+		font-size : 1.2rem;
+}
+</style>
 
 
 {% endblock %}
