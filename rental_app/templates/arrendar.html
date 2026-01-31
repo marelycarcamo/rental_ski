@@ -1,128 +1,142 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
 
-<div class="col-12">
-	<div class="row d-flex flex-row justify-content-center border border-danger p-5">
-		<div>
-			{% if messages %}
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-				<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-				{% for message in messages %} {{ message }} {% endfor %}
-			</div>
-			{% endif %}
-		</div>
+{% block content %}
+<div class="container d-flex flex-column justify-content-center align-items-center min-vh-100 py-5">
+    
+    <!-- Mensajes de alerta -->
+    <div class="w-100" style="max-width: 900px;">
+        {% if messages %}
+        <div class="alert alert-success alert-dismissible fade show mb-4 shadow rounded-3 border-0" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            {% for message in messages %} {{ message }} {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    </div>
 
-		<div class="col-6">
-			<form
-				action="{% url 'arrendar' equipo_id=equipo.id %}"
-				method="POST"
-				class="text-center border rounded mt-5 p-1 shadow-lg" style="background-color: rgba(0, 0, 0, 0.8) !important;">
-				<div class="d-flex flex-row justify-content-end">
-				<button type="button" class="btn-close btn-close-white mb-3 pb-3" aria-label="Close"></button>
-					</div>
-				{% csrf_token %}
-				<h3 class="g-2 text-white">{{ equipo.nombre }}</h3>
-				<div class="row d-flex flex-row">
-					<div id="id-img" class="col-6 g-4">
-						<div class="p-4 bg-white" style="display: inline-block;" >
-						<img
-							src=" {{ equipo.imagen }} "
-							alt="{{ equipo.nombre }}"
-							style="max-width: 100%; height: auto; display:block"/>
-					</div>
-					</div>
-					<div class="col-6 g-4">
-						{{ form.fecha }}  <!-- Reemplazamos el input manual por el campo del formulario -->
-						
-						<!-- Mostrar errores de fecha -->
-						{% if form.fecha.errors %}
-							<div class="alert alert-danger mt-2">
-								{% for error in form.fecha.errors %}
-									{{ error }}
-								{% endfor %}
-							</div>
-						{% endif %}
-					
-						<h3 class='precio p-2'>{{ equipo.precio }}</h3>
-						<a name="arrendar" type="submit" class="btn btn-info btn-lg text-white">Arrendar</a>
-					</div>
-					
-				</div>
-				<button type="button" class="btn mb-3 pb-3"  aria-label="Close"><i class="bi bi-arrow-left"></i></button>
-				<i class="bi bi-arrow-left"></i>
-			</form>
-			<div>
-				{% if messages %}
-				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-					{% for message in messages %} {{ message }} {% endfor %}
-				</div>
-				{% endif %}
-			</div>
-		</div>
-	
-	</div>
-	</div>
-	
-	<!-- Ids in the navbar a-href and ids in the content should match-->
+    <!-- Tarjeta Principal de Arriendo -->
+    <div class="card border-0 shadow-lg overflow-hidden w-100" style="max-width: 900px; background-color: rgba(0, 0, 0, 0.85); border-radius: 20px;">
+        <div class="row g-0">
+            
+            <!-- Sección Imagen -->
+            <div class="col-md-6 position-relative bg-white d-flex align-items-center justify-content-center p-4">
+                <img src="{{ equipo.imagen }}" 
+                     alt="{{ equipo.nombre }}" 
+                     class="img-fluid rounded shadow-sm"
+                     style="max-height: 350px; object-fit: contain; transition: transform 0.3s ease;">
+            </div>
 
-	<!-- <style>
-			#btn-arrendar {
-			background: rgba(0,0,0,0,0.9);
-            color: white!important;
-            transition: background-color.1s ease-in-out;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            margin-top: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-right: 10px;
-            margin-left: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-            outline: none;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-		}
+            <!-- Sección Formulario -->
+            <div class="col-md-6 p-4 p-lg-5 text-white">
+                
+                <!-- Encabezado con Botón Cerrar -->
+                <div class="d-flex justify-content-between align-items-start mb-4">
+                    <div>
+                        <h5 class="text-uppercase text-info mb-1" style="letter-spacing: 2px;">Arrendar Equipo</h5>
+                        <h2 class="fw-bold mb-0 text-white">{{ equipo.nombre }}</h2>
+                    </div>
+                    <a href="javascript:history.back()" class="btn-close btn-close-white" aria-label="Cerrar"></a>
+                </div>
 
-		#btn-arrendar:hover {
-			background:  #2fc8c3fe !important;
-            transition: background-color.1s ease-in-out;
-		}
+                <form action="{% url 'arrendar' equipo_id=equipo.id %}" method="POST" class="mt-4">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="id_fecha" class="form-label text-white-50 mb-2">
+                            <i class="bi bi-calendar-event me-2"></i>Fecha de inicio
+                        </label>
+                        <div class="input-group">
+                            {{ form.fecha }}
+                        </div>
+                        {% if form.fecha.errors %}
+                            <div class="alert alert-danger mt-2 py-2 small shadow-sm border-0">
+                                {% for error in form.fecha.errors %}
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
 
-	
-		
-		form{
-			background-color: rgba(0, 0, 0, 0.8) !important;
-		}
-		
+                    <div class="mb-5 d-flex align-items-center justify-content-between p-3 rounded-3" style="background-color: rgba(255,255,255,0.05);">
+                        <span class="text-white-50">Precio por día</span>
+                        <h2 class="mb-0 text-info fw-bold">{{ equipo.precio }}</h2>
+                    </div>
 
-	</style> -->
-
-
-	<!-- <script>
-		var scrollSpy = new bootstrap.ScrollSpy(document.body, {
-			target: "#navId",
-		});
-		document.addEventListener("DOMContentLoaded", function () {
-			var dia = new Date().toISOString().split("T")[0];
-			document.getElementById("id_fecha").setAttribute("min", dia);
-		});
-		
-		/* cerrar ventana */
-		const botonCerrar = document.querySelector('.btn-close');
-		botonCerrar.addEventListener('click', () => {
-			form.close();
-		});
-
-	</script> -->
+                    <div class="d-grid gap-3">
+                        <button type="submit" name="arrendar" class="btn btn-info btn-lg text-white fw-bold shadow-lg hover-scale">
+                            Confirmar Arriendo
+                        </button>
+                        <a href="javascript:history.back()" class="btn btn-outline-light border-0 text-white-50 hover-text-white">
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    /* Estilos personalizados para mejorar inputs y detalles */
+    
+    /* Override de estilos inline de forms.py si es necesario */
+    input[type="date"].form-control {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        color: white !important;
+        font-size: 1.1rem !important;
+        padding: 12px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    input[type="date"].form-control:focus {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        border-color: var(--bs-info) !important;
+        box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+        color: white !important;
+    }
+
+    /* Fix para el icono del calendario en navegadores webkit */
+    ::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+        opacity: 0.8;
+    }
+    ::-webkit-calendar-picker-indicator:hover {
+        opacity: 1;
+    }
+
+    /* Animaciones suaves */
+    .hover-scale {
+        transition: transform 0.2s;
+    }
+    .hover-scale:hover {
+        transform: translateY(-2px);
+    }
+
+    .hover-text-white {
+        transition: color 0.2s;
+    }
+    .hover-text-white:hover {
+        color: white !important;
+    }
+
+    /* Ajuste de imagen en hover */
+    .col-md-6:hover img {
+        transform: scale(1.05);
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Establecer fecha mínima a hoy
+        var dateInput = document.getElementById("id_fecha");
+        if (dateInput) {
+            var today = new Date().toISOString().split("T")[0];
+            dateInput.setAttribute("min", today);
+        }
+    });
+</script>
+
 {% endblock %}
-
-
-
-max-width: 100%; /* La imagen no excede el ancho del div */
-height: auto; /* Mantiene la proporción de la imagen */
-display: block; /* Elimina espacio extra debajo de la imagen */
