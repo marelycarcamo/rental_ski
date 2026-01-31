@@ -1,55 +1,95 @@
-{% extends 'base.html' %}{% load static %} {% block content %}
-<link rel="stylesheet" href="{% static '/css/form.css' %}">
+{% extends 'base.html' %}
+{% load static %} 
 
-<div class="container mb-5 border border-5 border-danger">
-	<div class="row">
-		<div class="container-login mx-auto">
-			<h2 class="">Nuevo usuario</h2>
-			<form
-				action=""
-				method="POST"
-				class="text-center border border-info-subtle p-4 rounded">
-				{% csrf_token %}
-				<div class="mb-3">
-					<input type="text" class="form-control" id="form_username" name="username" placeholder="username" required />
-				</div>
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100 py-5">
+    
+    <div class="card border-0 shadow-lg w-100" style="max-width: 500px; background-color: rgba(0, 0, 0, 0.85); border-radius: 20px;">
+        <div class="card-body p-4 p-md-5">
+            
+            <div class="text-center mb-4">
+                <i class="bi bi-person-plus-fill text-info" style="font-size: 3rem;"></i>
+                <h2 class="fw-bold text-white mt-2">Crear Cuenta</h2>
+                <p class="text-white-50">Únete a Rental Ski hoy mismo</p>
+            </div>
 
-				<div class="mb-3">
-					<input type="password" class="form-control" id="form_password" name="password" placeholder="password" required />
-				</div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control bg-transparent text-white border-secondary" id="form_username" name="username" placeholder="Usuario" required style="border-radius: 10px;">
+                        <label for="form_username" class="text-white-50">Nombre de Usuario</label>
+                    </div>
+                </div>
 
-				<div class="mb-3">
-					<input type="text" class="form-control" id="form_nombre" name="first_name" placeholder="Nombre" required />
-				</div>
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <input type="password" class="form-control bg-transparent text-white border-secondary" id="form_password" name="password" placeholder="Contraseña" required style="border-radius: 10px;">
+                        <label for="form_password" class="text-white-50">Contraseña</label>
+                    </div>
+                </div>
 
-				<div class="mb-3">
-					<input type="email" class="form-control" id="form_email" name="email" placeholder="Email" required />
-				</div>
-				<br>
-				<label>Tipo de usuario</label>
-				<div class="radio-group d-flex flex-row justify-content-evenly mb-2">
-					<div>
-						<input type="radio" id="cliente" name="user_type" value="cliente" required />
-						<label for="cliente">Cliente</label> 
-					</div>
-					<div>
-						<input type="radio" id="operario" name="user_type" value="operario" required />
-						<label for="operario">Operario</label>
-					</div>
-				</div>
-				<div>
-					<button type="submit" class="btn btn-info text-white col-12 my-2" style="font-size: large">Crear</button>
-				</div>
-			</form>
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <input type="text" class="form-control bg-transparent text-white border-secondary" id="form_nombre" name="first_name" placeholder="Nombre" required style="border-radius: 10px;">
+                        <label for="form_nombre" class="text-white-50">Nombre Completo</label>
+                    </div>
+                </div>
 
-			<div>
-				<p class="text-center">
-					si ya estas registrado, inicia sesion
-					<a href="{% url 'login' %}"> iniciar sesion </a>
-				</p>
-			</div>
-		</div>
-	</div>
+                <div class="mb-4">
+                    <div class="form-floating">
+                        <input type="email" class="form-control bg-transparent text-white border-secondary" id="form_email" name="email" placeholder="Email" required style="border-radius: 10px;">
+                        <label for="form_email" class="text-white-50">Correo Electrónico</label>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="text-white-50 mb-2 d-block">Tipo de usuario:</label>
+                    <div class="d-flex justify-content-center gap-4 bg-white bg-opacity-10 p-3 rounded-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="user_type" id="cliente" value="cliente" checked required>
+                            <label class="form-check-label text-white fw-bold" for="cliente">
+                                Cliente
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="user_type" id="operario" value="operario" required>
+                            <label class="form-check-label text-white fw-bold" for="operario">
+                                Operario
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info w-100 py-3 text-white fw-bold shadow mb-4" style="border-radius: 10px;">
+                    Registrarse
+                </button>
+
+                <div class="text-center">
+                    <p class="text-white-50 mb-0">¿Ya tienes cuenta?</p>
+                    <a href="{% url 'login' %}" class="text-info fw-bold text-decoration-none">Iniciar Sesión</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
+<style>
+    .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-color: var(--bs-info) !important;
+        box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+    }
+    
+    /* Fix para autocompletado en chrome que pone fondo blanco */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active{
+        -webkit-text-fill-color: white !important;
+        -webkit-box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.85) inset !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+</style>
 {% endblock %}

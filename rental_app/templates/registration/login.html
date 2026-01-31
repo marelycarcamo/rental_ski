@@ -1,39 +1,64 @@
+{% extends 'base.html' %} 
+{% load static %}
 
-{% extends 'base.html' %} {% load static %}{% block content %}
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center min-vh-100 py-5">
+    
+    <div class="card border-0 shadow-lg w-100" style="max-width: 450px; background-color: rgba(0, 0, 0, 0.85); border-radius: 20px;">
+        <div class="card-body p-4 p-md-5">
+            
+            <div class="text-center mb-5">
+                <i class="bi bi-person-circle text-info" style="font-size: 3rem;"></i>
+                <h2 class="fw-bold text-white mt-2">Bienvenido</h2>
+                <p class="text-white-50">Ingresa tus credenciales para continuar</p>
+            </div>
 
-<link rel="stylesheet" href="{% static '/css/form.css' %}">
-<div class="container mt-5">
-    <div class="row">
-        <div class="container-login mx-auto col-12">
-            <h2 class style="font-weight: 600;">Login</h2>
-            <form
-                action="{% url 'login' %}"
-                method="post"
-                class="text-center border border-info-subtle p-4 rounded">
+            <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <input type="text" class="form-control" name="username" placeholder="nombre usuario" required />
-                </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" name="password" placeholder="password" required />
+                
+                <div class="mb-4">
+                    <div class="form-floating">
+                        <input type="text" class="form-control bg-transparent text-white border-secondary" name="username" placeholder="Usuario" required style="border-radius: 10px;">
+                        <label for="username" class="text-white-50">Usuario</label>
+                    </div>
                 </div>
 
-                <div>
-                    <button type="submit" class="btn btn-info text-white col-12">
-                        Iniciar Sesion
-                    </button>
+                <div class="mb-4">
+                    <div class="form-floating">
+                        <input type="password" class="form-control bg-transparent text-white border-secondary" name="password" placeholder="Contraseña" required style="border-radius: 10px;">
+                        <label for="password" class="text-white-50">Contraseña</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-info w-100 py-3 text-white fw-bold shadow mb-4" style="border-radius: 10px;">
+                    Iniciar Sesión
+                </button>
+
+                <div class="text-center border-top border-secondary pt-4">
+                    <p class="text-white-50 mb-1">¿No tienes cuenta?</p>
+                    <a href="{% url 'registro' %}" class="text-info fw-bold text-decoration-none">Crear una cuenta nueva</a>
                 </div>
             </form>
-            <div>
-                <p class="text-center ">
-                    Si aun no tienes tu cuenta
-                    <a href="{% url 'registro' %}"> Registrate </a>
-                </p>
-            </div>
         </div>
     </div>
 </div>
 
+<style>
+    .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-color: var(--bs-info) !important;
+        box-shadow: 0 0 0 0.25rem rgba(13, 202, 240, 0.25);
+    }
 
+    /* Fix para autocompletado en chrome */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover, 
+    input:-webkit-autofill:focus, 
+    input:-webkit-autofill:active{
+        -webkit-text-fill-color: white !important;
+        -webkit-box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.85) inset !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+</style>
 {% endblock %}
 

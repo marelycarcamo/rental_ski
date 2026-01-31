@@ -1,57 +1,89 @@
-{% extends 'base.html' %} {% load static %} {% block content %} 
+{% extends 'base.html' %} 
+{% load static %} 
 
-<h1>Arriendos</h1>
+{% block content %} 
+<div class="container py-5 min-vh-100">
+    
+    <div class="p-4 p-lg-5 rounded-4 shadow-lg" style="background-color: rgba(0, 0, 0, 0.85);">
+        
+        <div class="d-flex align-items-center mb-4 border-bottom border-secondary pb-3">
+            <i class="bi bi-list-check text-info fs-2 me-3"></i>
+            <h1 class="text-white fw-bold mb-0">Gestión de Arriendos</h1>
+        </div>
 
-<div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
-
-
-		<div class="table-responsive">
-			<table class="table table-dark py-4">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Cliente</th>
-						<th>Equipo</th>
-						<th>Fecha</th>
-						<th>Observaciones</th>
-						<th colspan="">Dañado</th>
-						<th>Acción</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for arriendo in arriendos %}
-				
-					<tr>
-						
-                        <td>{{ arriendo.id }}</td>
-						<td>{{ arriendo.user.user.username }}</td>
-						<td>{{ arriendo.equipo.nombre }}</td>
-						<td>{{ arriendo.fecha|date:"d-m-y" }}</td>
-						<form action='{% url "comentario_arriendo" arriendo.id %}' method="post">
-							{% csrf_token %}
-							<td><textarea id="observacion" name="observacion" cols="40" rows="3" maxlength="250" >{{ arriendo.observacion }}</textarea></td>
-							<td ><input type="checkbox" name="danado" id="danado" style="transform: scale(1.8); accent-color:gray;"
-								{% if arriendo.danado %}checked{% endif %} 
-							value="True"></td>
-							<td><a class="btn btn-outline btn-info btn-lg text-white" type="submit">Guardar</a></td>
-						</form>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle custom-table">
+                <thead class="text-uppercase text-info">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Equipo</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col" style="min-width: 200px;">Observaciones</th>
+                        <th scope="col" class="text-center">Estado</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for arriendo in arriendos %}
+                    <tr>
+                        <td class="fw-bold text-white-50">{{ arriendo.id }}</td>
+                        <td class="fw-bold">{{ arriendo.user.user.username }}</td>
+                        <td>
+                            <span class="badge bg-secondary bg-opacity-25 text-white border border-secondary">
+                                {{ arriendo.equipo.nombre }}
+                            </span>
+                        </td>
+                        <td class="text-nowrap">{{ arriendo.fecha|date:"d-m-Y" }}</td>
+                        
+                        <form action='{% url "comentario_arriendo" arriendo.id %}' method="post">
+                            {% csrf_token %}
+                            <td>
+                                <textarea name="observacion" class="form-control form-control-sm bg-transparent text-white border-secondary" rows="2" maxlength="250" placeholder="Añadir nota...">{{ arriendo.observacion }}</textarea>
+                            </td>
+                            <td class="text-center">
+                                <div class="form-check d-flex justify-content-center">
+                                    <input type="checkbox" name="danado" class="form-check-input border-secondary" id="danado_{{arriendo.id}}" style="transform: scale(1.3);" {% if arriendo.danado %}checked{% endif %} value="True">
+                                    <label class="form-check-label ms-2 small text-danger fw-bold" for="danado_{{arriendo.id}}">Dañado</label>
+                                </div>
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-info btn-sm text-white fw-bold">
+                                    <i class="bi bi-save me-1"></i>Guardar
+                                </button>
+                            </td>
+                        </form>
+                    </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-white-50">
+                                <i class="bi bi-inbox fs-1 mb-2 d-block"></i>
+                                No hay arriendos registrados.
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-
 <style>
-	td:not(.btn),th{
-		border-collapse: collapse;
-		background-color: rgba(0, 0, 0, 0.8) !important;
-		color:white !important;
-		font-size : 1.2rem;
-}
+    /* Custom Table Styles override */
+    .table-dark {
+        --bs-table-bg: transparent;
+    }
+    
+    textarea.form-control:focus {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border-color: var(--bs-info) !important;
+        color: white !important;
+        box-shadow: none;
+    }
+
+    .form-check-input:checked {
+        background-color: var(--bs-danger);
+        border-color: var(--bs-danger);
+    }
 </style>
-
-
 {% endblock %}
