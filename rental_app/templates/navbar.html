@@ -38,7 +38,7 @@
 				{% if user.is_authenticated %}
 				<li class="nav-item">
 					{% if user.usuario.tipo == 'operario' %}
-						<a class="nav-link" href="{% url 'arriendos' %}">Arriendos</a>
+						<a class="nav-link" href="{% url 'arriendo' %}">Arriendos</a>
 					{% elif user.usuario.tipo == 'cliente' %}
 						<a class="nav-link" href="{% url 'mis_arriendos'  %}">Mis Arriendos</a>
 					{% endif %}
