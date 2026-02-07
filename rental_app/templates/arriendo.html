@@ -18,7 +18,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Cliente</th>
                         <th scope="col">Equipo</th>
-                        <th scope="col">Fecha</th>
+                        <th scope="col">Fecha Arriendo</th>
                         <th scope="col" style="min-width: 200px;">Observaciones</th>
                         <th scope="col" class="text-center">Estado</th>
                         <th scope="col">Acción</th>
@@ -34,7 +34,7 @@
                                 {{ arriendo.equipo.nombre }}
                             </span>
                         </td>
-                        <td class="text-nowrap">{{ arriendo.fecha|date:"d-m-Y" }}</td>
+                        <td class="text-nowrap">{{ arriendo.fecha_arriendo|date:"d-m-Y" }}</td>
                         
                         <form action='{% url "comentario_arriendo" arriendo.id %}' method="post">
                             {% csrf_token %}

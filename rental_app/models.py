@@ -51,10 +51,11 @@ class Equipo(django.db.models.Model):
 class Arriendo(django.db.models.Model):
     user = django.db.models.ForeignKey(Usuario, on_delete=django.db.models.DO_NOTHING)
     equipo = django.db.models.ForeignKey(Equipo, on_delete=django.db.models.DO_NOTHING)
-    fecha = django.db.models.DateTimeField()
+    fecha_arriendo = django.db.models.DateTimeField()
+    #fecha_devolucion = django.db.models.DateTimeField(null=True,blank=True)
     observacion = django.db.models.TextField(blank=True, null=True, default='Sin observaciones')
     danado = django.db.models.BooleanField(default=False)
     
 
     def __str__(self):
-        return f'Arriendo de {self.equipo.nombre} por {self.user.user.username} el {self.fecha}'
+        return f'Arriendo de {self.equipo.nombre} por {self.user.user.username} el {self.fecha_arriendo}'

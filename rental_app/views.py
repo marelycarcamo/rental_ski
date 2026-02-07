@@ -159,20 +159,28 @@ def registro(request):
 def arrendar_view(request, equipo_id):
     equipo = get_object_or_404(Equipo, id=equipo_id)
     user = request.user
-    usuario = get_object_or_404(Usuario, user=user)
+    
+    # Obtener o crear el perfil de Usuario si no existe
+    usuario, created = Usuario.objects.get_or_create(
+        user=user,
+        defaults={'tipo': 'cliente'}  # Por defecto, crear como cliente
+    )
+    
+    if created:
+        messages.info(request, 'Se ha creado tu perfil de usuario automáticamente.')
 
     if request.method == 'POST':
         form = ArrendarEquipoForm(request.POST)  # Usamos el formulario
         
         if form.is_valid():
             # Los datos ya están validados aquí
-            fecha = form.cleaned_data['fecha']
+            fecha_arriendo = form.cleaned_data['fecha']
 
             # Crear arriendo
             arriendo = Arriendo.objects.create(
                 user=usuario,
                 equipo=equipo,
-                fecha=fecha,
+                fecha_arriendo=fecha_arriendo,
             )
 
             # Actualizar estado del equipo
@@ -228,7 +236,15 @@ def mis_arriendos(request):
     try:
         # Obtener el usuario actual
         user = request.user
-        usuario = get_object_or_404(Usuario, user=user)
+        
+        # Obtener o crear el perfil de Usuario si no existe
+        usuario, created = Usuario.objects.get_or_create(
+            user=user,
+            defaults={'tipo': 'cliente'}
+        )
+        
+        if created:
+            messages.info(request, 'Se ha creado tu perfil de usuario automáticamente.')
 
         # Obtener todos los arriendos del usuario
         arriendos = Arriendo.objects.filter(user=usuario)

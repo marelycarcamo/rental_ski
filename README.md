@@ -17,7 +17,7 @@ Rental Ski es una aplicación diseñada para facilitar la gestión del arriendo 
 
 Esta aplicación es ideal para negocios de arriendo de equipos deportivos que buscan digitalizar y optimizar sus procesos, mejorando la experiencia tanto de clientes como de operarios.
 
-![Django](https://img.shields.io/badge/Django-4.x-green?style=flat-square) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16%2F17-blue?style=flat-square) ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.3-purple?style=flat-square) ![License](https://img.shields.io/badge/License-Privado-red?style=flat-square)
+![Django](https://img.shields.io/badge/Django-6.x-green?style=flat-square) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16%2F17-blue?style=flat-square) ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.3-purple?style=flat-square) ![License](https://img.shields.io/badge/License-Privado-red?style=flat-square)
 
 Aplicación web desarrollada para gestionar el arriendo de equipos de ski en la zona del volcán Villarrica. Permite a clientes registrarse, arrendar equipos disponibles, y a operarios gestionar observaciones de los arriendos.
 
@@ -36,7 +36,7 @@ Aplicación web desarrollada para gestionar el arriendo de equipos de ski en la 
 
 	```bash
 	python -m venv env
-	source env/bin/activate  # En Windows: env\Scripts\activate
+	source env/Scripts/activate  # En Windows: env\Scripts\activate
 	```
 
 3. **Instalar dependencias**
@@ -165,15 +165,11 @@ ArrendarEquipoForm
 
 ## 🧪 Dependencias
 
-- Python 3.10+
-
-- Django 4.x
-
-- psycopg2
-
-- Bootstrap 5.3.3
-
-- Bootstrap Icons 1.11.3
+- Python 3.14
+- Django 6.0.2
+- Psycopg2-binary 2.9.11
+- Bootstrap 5.3.3 
+- django-bootstrap-icons 1.11.3
 
 ---
 
