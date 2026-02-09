@@ -18,4 +18,4 @@ class ArrendarEquipoForm(forms.Form):
         fecha = self.cleaned_data['fecha']
         if fecha < date.today():
             raise ValidationError("¡La fecha no puede ser anterior a hoy!")
-        return _
+        return

@@ -165,7 +165,7 @@ ArrendarEquipoForm
 
 ## 🧪 Dependencias
 
-- Python 3.14
+- Python 3.12.10
 - Django 6.0.2
 - Psycopg2-binary 2.9.11
 - Bootstrap 5.3.3 
